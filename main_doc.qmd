@@ -1,0 +1,52 @@
+---
+title: "Hello Typst!"
+format:
+  typst:
+    toc: true
+    section-numbering: 1.1.a
+    columns: 1
+---
+
+# Lorem ipsum
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer placerat varius elit, vel imperdiet risus rutrum non. Nunc venenatis, erat eget malesuada aliquet, risus mi auctor leo, quis sollicitudin massa risus a tortor. Mauris quis sapien dapibus, sodales diam et, consequat odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam ex dui, vulputate eget nisl ut, pharetra maximus augue. Proin nisl neque, lobortis a pretium nec, dignissim a ligula. Proin leo metus, maximus non eros euismod, venenatis placerat dui. Sed id condimentum magna. Integer a tellus diam. Curabitur id ipsum vehicula, rhoncus nisi vel, tempor tellus. In hac habitasse platea dictumst. Donec pretium sit amet quam non dictum. Ut finibus id elit a scelerisque. In hac habitasse platea dictumst. Quisque a elementum diam. Nullam turpis velit, laoreet at risus non, venenatis accumsan lectus.
+
+
+# Vivamus id
+
+Vivamus id mi ipsum. Etiam ultricies ante est, sit amet elementum neque faucibus id. Nullam est sapien, ultrices id consectetur imperdiet, congue malesuada nisl. Nullam cursus aliquam dictum. Proin volutpat ex purus, eget dapibus ex fringilla eu. Maecenas porta justo id leo mollis sodales. Proin porttitor orci id risus luctus tincidunt. Integer facilisis justo non luctus pulvinar. Maecenas at ante molestie, mollis tellus ac, aliquam nisl. Proin vitae diam a lacus dignissim luctus. Donec consectetur urna a commodo luctus. Phasellus volutpat sodales dui, at bibendum dolor luctus commodo. Proin ultrices posuere bibendum. Mauris fringilla libero ante, id commodo elit efficitur eget.
+
+
+```{r}
+#| echo: false
+#| output: asis
+#| message: false
+#| warning: false
+
+df <- 
+  data.frame(
+    alpha = 1:10,
+    ratio = 2:11
+  )
+
+for (i in 1:nrow(df)) {
+
+  child_env <- new.env() 
+  child_env$params <- 
+    list(
+        alpha = df[i, "alpha"], 
+        ratio = df[i, "ratio"]
+    ) 
+  
+  content <- 
+    knitr::knit_child(
+      "template.qmd", 
+      envir = child_env, 
+      quiet = TRUE
+    )
+
+  cat("{{< pagebreak >}}")
+  cat(content)
+
+}
+```

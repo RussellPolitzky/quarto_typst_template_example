@@ -1,0 +1,26 @@
+---
+title: "Re-Used Template"
+format: typst
+engine: knitr
+params:
+  alpha: 0.1
+  ratio: 0.2  
+---
+
+# This Is The Heading
+
+Alpha is `r params$alpha` and the ratio is `r params$ratio`.
+
+```{r}
+#| echo: false
+
+library(ggplot2)
+
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point(size = 3, alpha = 0.8) +
+  labs(title = "Iris Petal Dimensions",
+       x = "Petal Length",
+       y = "Petal Width") +
+  theme_minimal()
+```
+
