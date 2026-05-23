@@ -32,7 +32,9 @@ list(
   ),
 
   # Step 5: Render the main document
-  # Explicit dependency on tables and charts ensures they run first
+  # tar_quarto() can't detect tar_read() calls in knit_child templates,
+
+  # so we use tar_file() with explicit dependencies on tables and charts.
   tarchetypes::tar_file(
     report,
     {
