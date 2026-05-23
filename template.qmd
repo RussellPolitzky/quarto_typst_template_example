@@ -12,6 +12,8 @@ params:
 
 library(targets)
 row_id <- params$row_id
+pandoc_to <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+is_html <- !is.null(pandoc_to) && pandoc_to == "html"
 ```
 
 # Simulation `r row_id`: Drift Analysis
@@ -27,5 +29,9 @@ knitr::kable(tar_read(tables, branches = row_id)[[1]])
 #| fig-width: 7
 #| fig-height: 4
 
-print(tar_read(charts, branches = row_id)[[1]])
+if (is_html) {
+  tar_read(dygraphs, branches = row_id)[[1]]
+} else {
+  print(tar_read(charts, branches = row_id)[[1]])
+}
 ```

@@ -5,6 +5,10 @@ format:
     toc: true
     section-numbering: 1.1.a
     columns: 1
+  html:
+    toc: true
+    number-sections: true
+    self-contained: true
 ---
 
 # Lorem ipsum
