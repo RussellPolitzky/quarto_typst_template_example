@@ -23,30 +23,22 @@ Vivamus id mi ipsum. Etiam ultricies ante est, sit amet elementum neque faucibus
 #| message: false
 #| warning: false
 
-df <- 
-  data.frame(
-    alpha = 1:10,
-    ratio = 2:11
+library(targets)
+
+params_df <- tar_read(params_df)
+
+for (i in seq_len(nrow(params_df))) {
+
+  child_env <- new.env()
+  child_env$params <- list(row_id = i)
+
+  content <- knitr::knit_child(
+    "template.qmd",
+    envir = child_env,
+    quiet = TRUE
   )
-
-for (i in 1:nrow(df)) {
-
-  child_env <- new.env() 
-  child_env$params <- 
-    list(
-        alpha = df[i, "alpha"], 
-        ratio = df[i, "ratio"]
-    ) 
-  
-  content <- 
-    knitr::knit_child(
-      "template.qmd", 
-      envir = child_env, 
-      quiet = TRUE
-    )
 
   cat("{{< pagebreak >}}")
   cat(content)
-
 }
 ```

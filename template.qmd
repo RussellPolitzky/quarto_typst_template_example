@@ -3,24 +3,29 @@ title: "Re-Used Template"
 format: typst
 engine: knitr
 params:
-  alpha: 0.1
-  ratio: 0.2  
+  row_id: 1
 ---
 
-# This Is The Heading
+```{r}
+#| echo: false
+#| message: false
 
-Alpha is `r params$alpha` and the ratio is `r params$ratio`.
+library(targets)
+row_id <- params$row_id
+```
+
+# Simulation `r row_id`: Drift Analysis
 
 ```{r}
 #| echo: false
 
-library(ggplot2)
-
-ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
-  geom_point(size = 3, alpha = 0.8) +
-  labs(title = "Iris Petal Dimensions",
-       x = "Petal Length",
-       y = "Petal Width") +
-  theme_minimal()
+knitr::kable(tar_read(tables, branches = row_id)[[1]])
 ```
 
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+
+print(tar_read(charts, branches = row_id)[[1]])
+```
