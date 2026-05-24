@@ -3,6 +3,7 @@
 #' @param row_id Which row to use
 #' @return A ggplot object
 make_chart <- function(params_df, row_id) {
+  id <- x <- y <- NULL
   row <- params_df[id == row_id]
 
   set.seed(row$alpha)
@@ -14,11 +15,20 @@ make_chart <- function(params_df, row_id) {
   )
 
   ggplot2::ggplot(plot_data, ggplot2::aes(x = step, y = y)) +
-    ggplot2::geom_line(ggplot2::aes(group = 1), linewidth = 0.8, color = "grey40") +
-    ggplot2::geom_point(ggplot2::aes(color = x), size = 1.5, alpha = 0.7) +
+    ggplot2::geom_line(
+      ggplot2::aes(group = 1),
+      linewidth = 0.8, color = "grey40"
+    ) +
+    ggplot2::geom_point(
+      ggplot2::aes(color = x),
+      size = 1.5, alpha = 0.7
+    ) +
     ggplot2::scale_color_viridis_c() +
     ggplot2::labs(
-      title = paste0("Random Walk (alpha=", row$alpha, ", ratio=", row$ratio, ")"),
+      title = paste0(
+        "Random Walk (alpha=", row$alpha,
+        ", ratio=", row$ratio, ")"
+      ),
       x = "Step",
       y = "Cumulative Value",
       color = "X drift"
@@ -31,6 +41,7 @@ make_chart <- function(params_df, row_id) {
 #' @param row_id Which row to use
 #' @return A dygraph htmlwidget
 make_dygraph <- function(params_df, row_id) {
+  id <- NULL
   row <- params_df[id == row_id]
 
   set.seed(row$alpha)

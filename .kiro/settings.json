@@ -1,0 +1,9 @@
+{
+  "terminal.integrated.profiles.windows": {
+    "Radian": {
+      "path": "C:\\Users\\russe\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\radian.EXE",
+      "args": ["--r-binary", "C:\\Program Files\\R\\R-4.5.3\\bin\\R.exe"],
+      "icon": "terminal"
+    }
+  }
+}
